@@ -45,6 +45,88 @@ module counter(clk, addr, control, immediate, data);
   // TODO: implementation
 endmodule
 
+module ripple_adder(
+
+);
+
+endmodule
+
+module full_adder(
+    input  wire in1,  // A
+    input  wire in2,  // B
+    input  wire carry_in,
+    output wire carry_out,
+    output wire sum
+);
+  wire AB;
+  wire ACin;
+  wire BCin;
+  wire ACin_or_BCin;
+  wire A_XOR_B;
+
+  and_gate AB_gate(
+      .in1(in1),
+      .in2(in2),
+      .out(AB)
+  );
+
+  and_gate ACin_gate(
+      .in1(in1),
+      .in2(carry_in),
+      .out(ACin)
+  );
+
+  and_gate BCin_gate(
+      .in1(in2),
+      .in2(carry_in),
+      .out(BCin)
+  );
+
+  or_gate ACin_or_BCin_gate(
+      .in1(ACin),
+      .in2(BCin),
+      .out(ACin_or_BCin)
+  );
+
+  or_gate carry_out_gate(
+      .in1(AB),
+      .in2(ACin_or_BCin),
+      .out(carry_out)
+  );
+
+  xor_gate A_XOR_B_gate(
+    .in1(in1),
+    .in2(in2),
+    .out(A_XOR_B)
+  );
+
+  xor_gate sum_gate(
+      .in1(A_XOR_B),
+      .in2(carry_in),
+      .out(sum)
+  );
+endmodule
+
+module half_adder(
+    input  wire in1,
+    input  wire in2,
+    output wire carry_out,
+    output wire sum
+);
+
+  and_gate carry_out_gate(
+      .in1(in1),
+      .in2(in2),
+      .out(carry_out)
+  );
+
+  xor_gate sum_gate(
+      .in1(in1),
+      .in2(in2),
+      .out(sum)
+  );
+endmodule
+
 module xor_gate(
     input  wire in1,
     input  wire in2,
