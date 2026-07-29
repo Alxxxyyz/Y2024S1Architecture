@@ -13,7 +13,7 @@ module testbench();
   and_gate and_g1(a, b, and_result);
   or_gate or_g1(a, b, or_result);
   xor_gate xor_g1(a, b, xor_result);
-  half_adder ha(a, b, s, c_out);
+  half_adder ha(.a(a), .b(b), .c_out(c_out), .s(s));
 
   initial begin
     //$monitor("a = %b, b = %b, and_result = %b, or_result = %b, xor_result = %b", a, b, and_result, or_result, xor_result);
