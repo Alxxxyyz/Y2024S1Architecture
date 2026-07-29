@@ -45,12 +45,6 @@ module counter(clk, addr, control, immediate, data);
   // TODO: implementation
 endmodule
 
-module ripple_adder(
-
-);
-
-endmodule
-
 module full_adder(
     input  wire in1,  // A
     input  wire in2,  // B
@@ -240,6 +234,6 @@ module not_gate(
   supply1 pwr;
   supply0 gnd;
 
-  pmos p1 (out, pwr, in);
-  nmos n1 (out, gnd, in);
+  pmos p1(out, pwr, in);
+  nmos n1(out, gnd, in);
 endmodule
