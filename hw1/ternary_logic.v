@@ -1,11 +1,12 @@
-module ternary_min(a, b, out);
-  input  [1:0] a;
-  input  [1:0] b;
-  output [1:0] out;
-
+module ternary_min(
+    input  wire [1:0] a,
+    input  wire [1:0] b,
+    output wire [1:0] out
+);
   wire and_gate_1_out;
   wire and_gate_2_out;
   wire  or_gate_1_out;
+
   // out[0] = ((a[0] && (b[1] || b[0])) || (a[1] && b[0]))
   // out[1] = (a[1] && b[1])
 
@@ -47,13 +48,14 @@ module ternary_min(a, b, out);
   );
 endmodule
 
-module ternary_max(a, b, out);
-  input  [1:0] a;
-  input  [1:0] b;
-  output [1:0] out;
-
+module ternary_max(
+    input  wire [1:0] a,
+    input  wire [1:0] b,
+    output wire [1:0] out
+);
   wire nor_gate_1_out;
   wire  or_gate_1_out;
+
   // o[0] = ((a[1] nor b[1]) && (a[0] || b[0]))
   // o[1] = (a[1] || b[1])
 
@@ -88,11 +90,11 @@ module ternary_max(a, b, out);
   );
 endmodule
 
-module ternary_any(a, b, out);
-  input  [1:0] a;
-  input  [1:0] b;
-  output [1:0] out;
-
+module ternary_any(
+    input  wire [1:0] a,
+    input  wire [1:0] b,
+    output wire [1:0] out
+);
   wire nor_gate_1_out;
   wire and_gate_1_out;
   wire not_gate_1_out;
@@ -104,6 +106,7 @@ module ternary_any(a, b, out);
   wire  or_gate_3_out;
   wire and_gate_5_out;
   wire and_gate_6_out;
+
   // o[0] = ((a[0] NOR a[1]) && b[1])  ||
   //        (a[0] && not(a[1]) && b[0])  ||
   //        (a[1] && (b[0] NOR b[1]))
@@ -206,11 +209,11 @@ module ternary_any(a, b, out);
 
 endmodule
 
-module ternary_consensus(a, b, out);
-  input  [1:0] a;
-  input  [1:0] b;
-  output [1:0] out;
-
+module ternary_consensus(
+    input  wire [1:0] a,
+    input  wire [1:0] b,
+    output wire [1:0] out
+);
   wire  or_gate_1_out;
   wire  or_gate_2_out;
   wire  or_gate_3_out;
