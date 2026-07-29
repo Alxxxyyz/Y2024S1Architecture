@@ -1,4 +1,8 @@
-.DS_Store
-a.out
-*.vcd
 .slang/
+
+# Icarus
+*.vvp
+*.out
+
+# Waveform dumps
+*.vcd
