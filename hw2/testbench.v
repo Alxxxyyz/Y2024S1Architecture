@@ -19,8 +19,8 @@ module ripple_adder_tb();
 
   initial begin
     errors = 0;
-    for (i = 0; i < 4; i = i + 1) begin
-      for (j = 0; j < 4; j = j + 1) begin
+    for (i = 0; i < 16; i = i + 1) begin
+      for (j = 0; j < 16; j = j + 1) begin
         for (k = 0; k < 2; k = k + 1) begin
           a = i;
           b = j;
@@ -28,14 +28,15 @@ module ripple_adder_tb();
           #1;
           expected = i + j + k;
           if ({carry_out, sum} !== expected) begin
-            $display("ERROR. i = %d, j = %d, k = %d, expected = %d, got = %d", i, j, k, expected, {cout, sum});
+            $display("ERROR. i = %d, j = %d, k = %d, expected = %d, got = %d",
+                    i, j, k, expected, {carry_out, sum});
             errors = errors + 1;
           end
         end
       end
     end
     if (errors == 0) $display("Pass!");
-    else $display("Fail with %b errors.", errors);
+    else $display("Fail with %d errors.", errors);
     $finish;
   end
 endmodule
