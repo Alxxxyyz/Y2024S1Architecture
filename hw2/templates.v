@@ -86,8 +86,8 @@ module mux(
   wire data_2_pass;
 
   not control_invert_gate(control_invert, control);
-  or  data_1_pass_gate(data_1_pass, control_invert, data_1);
-  or  data_2_pass_gate(data_2_pass, control, data_2);
+  or  data_1_pass_gate(data_1_pass, control, data_1);
+  or  data_2_pass_gate(data_2_pass, control_invert, data_2);
   and data_output_gate(out, data_1_pass, data_2_pass);
 endmodule
 
