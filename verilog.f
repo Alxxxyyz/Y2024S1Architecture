@@ -1,0 +1,17 @@
+hw1/ternary_logic_tester.v
+hw1/ternary_logic.v
+hw2/alu_test.v
+hw2/counter_test.v
+hw2/register_file_test.v
+hw2/templates.v
+hw2/testbench.v
+hw3/cpu_test.v
+hw3/d_flop.v
+hw3/memory.v
+hw3/mips_cpu.v
+hw3/register_file.v
+hw3/util.v
+test/test.v
+verilog/introduction.v
+verilog/structural.v
+verilog/structural_testbench.v

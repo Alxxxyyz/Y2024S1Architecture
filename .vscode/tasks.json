@@ -1,0 +1,32 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Verilog: Compile & Run",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "cd \"${fileDirname}\" && iverilog -g2012 \"${fileBasename}\" && vvp a.out"],
+      "group": { "kind": "build", "isDefault": true },
+      "presentation": { "reveal": "always", "panel": "shared" },
+      "problemMatcher": []
+    },
+    {
+      "label": "Verilog: Waves",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "cd \"${fileDirname}\" && iverilog -g2012 \"${fileBasename}\" && vvp a.out && open -a gtkwave *.vcd"]
+    },
+    {
+      "label": "Verilog: Style Lint",
+      "type": "shell",
+      "command": "verible-verilog-lint",
+      "args": ["--rules_config", ".rules.verible_lint", "${file}"]
+    },
+    {
+      "label": "Verilog: Schematic",
+      "type": "shell",
+      "command": "bash",
+      "args": ["-c", "yosys -p 'read_verilog ${file}; hierarchy -auto-top; show -format svg -prefix schem'"]
+    }
+  ]
+}

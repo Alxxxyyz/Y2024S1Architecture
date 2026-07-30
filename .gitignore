@@ -1,0 +1,8 @@
+.slang
+
+# Icarus
+*.vvp
+*.out
+
+# Waveform dumps
+*.vcd

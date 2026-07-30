@@ -1,0 +1,45 @@
+{
+  // Verilog-сниппеты этого воркспейса. Срабатывают по prefix в .v файлах.
+  "Module block": {
+    "prefix": "module",
+    "scope": "verilog",
+    "body": ["module ${1:new_module_name}(${2:ports});", "\t${0}", "endmodule"],
+    "description": "Insert module block"
+  },
+  "Initial block": {
+    "prefix": "initial",
+    "scope": "verilog",
+    "body": ["initial begin", "\t${0}", "end"],
+    "description": "Insert initial block"
+  },
+  "P-type MOSFET": {
+    "prefix": "pmos",
+    "scope": "verilog",
+    "body": "pmos ${1:pmos_name}(${2:to}, ${3:from}, ${4:gate});",
+    "description": "Insert p-type MOSFET"
+  },
+  "N-type MOSFET": {
+    "prefix": "nmos",
+    "scope": "verilog",
+    "body": "nmos ${1:nmos_name}(${2:to}, ${3:from}, ${4:gate});",
+    "description": "Insert n-type MOSFET"
+  },
+  "if": {
+    "prefix": "if",
+    "scope": "verilog",
+    "body": ["if (${1:condition}) begin", "\t${0}", "end"],
+    "description": "Insert if block"
+  },
+  "for": {
+    "prefix": "for",
+    "scope": "verilog",
+    "body": ["for (${1:i = 0}; ${2:i < n}; ${3:i = i + 1}) begin", "\t${0}", "end"],
+    "description": "Insert for-loop"
+  },
+  "task": {
+    "prefix": "task",
+    "scope": "verilog",
+    "body": ["task ${1:name};", "\t${0}", "endtask"],
+    "description": "Insert task block"
+  }
+}
