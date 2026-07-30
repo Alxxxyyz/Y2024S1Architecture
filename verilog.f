@@ -4,6 +4,7 @@ hw2/alu_test.v
 hw2/counter_test.v
 hw2/register_file_test.v
 hw2/templates.v
+hw2/testbench.v
 hw3/cpu_test.v
 hw3/d_flop.v
 hw3/memory.v
