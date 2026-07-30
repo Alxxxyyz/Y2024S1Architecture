@@ -45,50 +45,51 @@ module counter(clk, addr, control, immediate, data);
   // TODO: implementation
 endmodule
 
-module mux4(
+module mux2_4(
     input  wire [1:0] control,
+    input  wire       data_0,
     input  wire       data_1,
     input  wire       data_2,
     input  wire       data_3,
-    input  wire       data_4,
     output wire       out
 );
   wire first_half;
   wire last_half;
-  mux first_half_mux(
+
+  mux1_2 first_half_mux(
       .control(control[0]),
+      .data_0(data_0),
       .data_1(data_1),
-      .data_2(data_2),
       .out(first_half)
   );
-  mux last_half_mux(
+  mux1_2 last_half_mux(
       .control(control[0]),
+      .data_0(data_2),
       .data_1(data_3),
-      .data_2(data_4),
       .out(last_half)
   );
-  mux total_mux(
+  mux1_2 total_mux(
       .control(control[1]),
-      .data_1(first_half),
-      .data_2(last_half),
+      .data_0(first_half),
+      .data_1(last_half),
       .out(out)
   );
 endmodule
 
-module mux(
+module mux1_2(
     input  wire control,
+    input  wire data_0,
     input  wire data_1,
-    input  wire data_2,
     output wire out
 );
   wire control_invert;
+  wire data_0_pass;
   wire data_1_pass;
-  wire data_2_pass;
 
   not control_invert_gate(control_invert, control);
-  or  data_1_pass_gate(data_1_pass, control, data_1);
-  or  data_2_pass_gate(data_2_pass, control_invert, data_2);
-  and data_output_gate(out, data_1_pass, data_2_pass);
+  or  data_0_pass_gate(data_0_pass, control, data_0);
+  or  data_1_pass_gate(data_1_pass, control_invert, data_1);
+  and data_output_gate(out, data_0_pass, data_1_pass);
 endmodule
 
 module ripple_adder(
@@ -98,35 +99,35 @@ module ripple_adder(
     output wire       carry_out,
     output wire [3:0] sum
 );
+  wire carry_0;
   wire carry_1;
   wire carry_2;
-  wire carry_3;
 
   full_adder least_significant_bit(
       .addend_1(addend_1[0]),
       .addend_2(addend_2[0]),
       .carry_in(carry_in),
-      .carry_out(carry_1),
+      .carry_out(carry_0),
       .sum(sum[0])
   );
   full_adder second_bit(
       .addend_1(addend_1[1]),
       .addend_2(addend_2[1]),
-      .carry_in(carry_1),
-      .carry_out(carry_2),
+      .carry_in(carry_0),
+      .carry_out(carry_1),
       .sum(sum[1])
   );
   full_adder third_bit(
       .addend_1(addend_1[2]),
       .addend_2(addend_2[2]),
-      .carry_in(carry_2),
-      .carry_out(carry_3),
+      .carry_in(carry_1),
+      .carry_out(carry_2),
       .sum(sum[2])
   );
   full_adder most_significant_bit(
       .addend_1(addend_1[3]),
       .addend_2(addend_2[3]),
-      .carry_in(carry_3),
+      .carry_in(carry_2),
       .carry_out(carry_out),
       .sum(sum[3])
   );
