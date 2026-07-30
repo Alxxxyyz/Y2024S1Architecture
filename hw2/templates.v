@@ -134,21 +134,30 @@ module ripple_adder(
 endmodule
 
 module full_adder(
-    input  wire addend_1,  // A
-    input  wire addend_2,  // B
+    input  wire addend_1,
+    input  wire addend_2,
     input  wire carry_in,
     output wire carry_out,
     output wire sum
 );
-  wire AB;
-  wire ACin;
-  wire BCin;
+  wire carry_out_main;
+  wire carry_out_in;
+  wire sum_main;
 
-  xor sum_gate(sum, addend_1, addend_2, carry_in);
-  and and_1(AB, addend_1, addend_2);
-  and and_2(ACin, addend_1, carry_in);
-  and and_3(BCin, addend_2, carry_in);
-  or  carry_out_gate(carry_out, AB, ACin, BCin);
+  half_adder sum_g(
+      .addend_1(addend_1),
+      .addend_2(addend_2),
+      .carry_out(carry_out_main),
+      .sum(sum_main)
+  );
+  half_adder add_carry_in_g(
+      .addend_1(sum_main),
+      .addend_2(carry_in),
+      .carry_out(carry_out_in),
+      .sum(sum)
+  );
+  and carry(carry_out, carry_out_main, carry_out_in);
+
 endmodule
 
 module half_adder(
