@@ -6,3 +6,6 @@
 
 # Waveform dumps
 *.vcd
+
+# yosys
+*.svg
