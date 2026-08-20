@@ -1,2 +1,5 @@
 -module-filename
 -explicit-parameter-storage-type
+-parameter-name-style
+-always-comb
+-unpacked-dimensions-range-ordering
