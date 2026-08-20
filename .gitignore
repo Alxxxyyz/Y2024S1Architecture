@@ -9,3 +9,4 @@
 
 # yosys
 *.svg
+*.dot
