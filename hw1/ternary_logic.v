@@ -156,6 +156,7 @@ module ternary_consensus(
   wire b_not_minus;
   wire not_both_minus;
   wire not_both_plus;
+  wire both_plus;
 
   and_gate and_gate_1(
       .in1(a[1]),
@@ -163,8 +164,13 @@ module ternary_consensus(
       .out(out[1])
   );
 
+  and_gate and_gate_3(
+      .in1(a[1]),
+      .in2(b[1]),
+      .out(both_plus)
+  );
   not_gate not_gate_1(
-      .in (out[1]),
+      .in (both_plus),
       .out(not_both_plus)
   );
   or_gate or_gate_1(
@@ -188,16 +194,6 @@ module ternary_consensus(
       .out(out[0])
   );
 endmodule
-
-
-// ---------------------------------------------------------------------------
-// Логические вентили из транзисторов.
-//
-// Питание проводится через p-канальные транзисторы, а земля - через
-// n-канальные: p хорошо передает единицу, n хорошо передает ноль.
-// Поэтому естественными для КМОП оказываются инвертирующие вентили
-// (NAND, NOR), а AND и OR получаются добавлением инвертора на выход.
-// ---------------------------------------------------------------------------
 
 module or_gate(
     input  wire in1,
@@ -243,13 +239,10 @@ module nand_gate(
   supply1 pwr;
   supply0 gnd;
 
-  // Узел между двумя последовательными n-канальными транзисторами
   wire nmos_chain;
 
-  // Параллельные p к питанию: хватает одного нуля на входе, чтобы выдать 1
   pmos p1(out, pwr, in1);
   pmos p2(out, pwr, in2);
-  // Последовательные n к земле: ноль на выходе только при двух единицах
   nmos n1(out, nmos_chain, in1);
   nmos n2(nmos_chain, gnd, in2);
 endmodule
@@ -262,13 +255,10 @@ module nor_gate(
   supply1 pwr;
   supply0 gnd;
 
-  // Узел между двумя последовательными p-канальными транзисторами
   wire pmos_chain;
 
-  // Последовательные p к питанию: единица на выходе только при двух нулях
   pmos p1(pmos_chain, pwr, in1);
   pmos p2(out, pmos_chain, in2);
-  // Параллельные n к земле: хватает одной единицы на входе, чтобы выдать 0
   nmos n1(out, gnd, in1);
   nmos n2(out, gnd, in2);
 endmodule
