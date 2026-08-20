@@ -26,7 +26,14 @@
       "label": "Verilog: Schematic",
       "type": "shell",
       "command": "bash",
-      "args": ["-c", "yosys -p 'read_verilog ${file}; hierarchy -auto-top; show -format svg -prefix schem'"]
+      "args": ["-c", "cd \"${fileDirname}\" && yosys -p 'read_verilog \"${fileBasename}\"; hierarchy -top ${input:topModule}; proc; opt; show -notitle -format svg -prefix schem ${input:topModule}' && open schem.svg"]
+    }
+  ],
+  "inputs": [
+    {
+      "id": "topModule",
+      "type": "promptString",
+      "description": "Имя модуля для схемы (например ripple_adder)"
     }
   ]
 }
